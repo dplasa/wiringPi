@@ -1835,7 +1835,7 @@ int wiringPiISR (int pin, int mode, void (*function)(void*), void* functionParam
   pthread_t threadId ;
   const char *modeS ;
   char fName   [64] ;
-  char  pinS [8] ;Parameter
+  char  pinS [8] ;
   pid_t pid ;
   int   count, i ;
   char  c ;

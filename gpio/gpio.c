@@ -543,7 +543,7 @@ void doExport (int argc, char *argv [])
  *********************************************************************************
  */
 
-static void wfi (void*)
+static void wfi (UNU void* arg)
   { exit (0) ; }
 
 void doWfi (int argc, char *argv [])
