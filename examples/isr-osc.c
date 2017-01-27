@@ -95,7 +95,7 @@ int main (void)
   pinMode (OUT_PIN, OUTPUT) ;
   pinMode (IN_PIN,  INPUT) ;
 
-  if (wiringPiISR (IN_PIN, INT_EDGE_FALLING, &myInterrupt) < 0)
+  if (wiringPiISR (IN_PIN, INT_EDGE_FALLING, &myInterrupt, NULL) < 0)
   {
     fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno)) ;
     return 1 ;

@@ -40,7 +40,7 @@
  *********************************************************************************
  */
 
-void lowPower (void)
+void lowPower (void*)
 {
   time_t t ;
 
@@ -59,7 +59,7 @@ int main (void)
 {
   wiringPiSetupGpio () ;	// GPIO mode as it's an internal pin
 
-  wiringPiISR (LOW_POWER, INT_EDGE_FALLING, &lowPower) ;
+  wiringPiISR (LOW_POWER, INT_EDGE_FALLING, &lowPower, NULL) ;
 
   for (;;)
     delay (1000) ;

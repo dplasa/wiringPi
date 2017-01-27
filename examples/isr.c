@@ -50,15 +50,11 @@ static volatile int globalCounter [8] ;
  *********************************************************************************
  */
 
-void myInterrupt0 (void) { ++globalCounter [0] ; }
-void myInterrupt1 (void) { ++globalCounter [1] ; }
-void myInterrupt2 (void) { ++globalCounter [2] ; }
-void myInterrupt3 (void) { ++globalCounter [3] ; }
-void myInterrupt4 (void) { ++globalCounter [4] ; }
-void myInterrupt5 (void) { ++globalCounter [5] ; }
-void myInterrupt6 (void) { ++globalCounter [6] ; }
-void myInterrupt7 (void) { ++globalCounter [7] ; }
-
+void myInterrupt (void* arg) 
+{
+  int* theCounter = (int*) arg;
+  ++(*theCounter);
+}
 
 /*
  *********************************************************************************
@@ -71,19 +67,13 @@ int main (void)
   int gotOne, pin ;
   int myCounter [8] ;
 
-  for (pin = 0 ; pin < 8 ; ++pin) 
-    globalCounter [pin] = myCounter [pin] = 0 ;
-
   wiringPiSetup () ;
 
-  wiringPiISR (0, INT_EDGE_FALLING, &myInterrupt0) ;
-  wiringPiISR (1, INT_EDGE_FALLING, &myInterrupt1) ;
-  wiringPiISR (2, INT_EDGE_FALLING, &myInterrupt2) ;
-  wiringPiISR (3, INT_EDGE_FALLING, &myInterrupt3) ;
-  wiringPiISR (4, INT_EDGE_FALLING, &myInterrupt4) ;
-  wiringPiISR (5, INT_EDGE_FALLING, &myInterrupt5) ;
-  wiringPiISR (6, INT_EDGE_FALLING, &myInterrupt6) ;
-  wiringPiISR (7, INT_EDGE_FALLING, &myInterrupt7) ;
+  for (pin = 0 ; pin < 8 ; ++pin) 
+  {
+    globalCounter [pin] = myCounter [pin] = 0 ;
+    wiringPiISR (pin, INT_EDGE_FALLING, &myInterrupt, &(globalCounter[pin])) ;
+  }
 
   for (;;)
   {
